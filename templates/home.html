@@ -1,0 +1,94 @@
+{%load static%}
+{% load fontawesome_5 %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel='stylesheet' href="{% static '/css/style.css'%}" type="text/css">
+    {% fontawesome_5_static %}
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!--Nav bar-->
+    <div class="navbar">
+        <div class="container">
+            <div class="links">
+                {% if user.is_authenticated%}
+                <a href="{% url 'logout' %}">Log out</a>
+                {%else%}
+                <a href="login">Log in</a>
+                <a href="register">sign up</a>
+                {%endif%}
+            </div>
+            <div class="name">
+                <p>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'main' %}" style="text-decoration: none; color:white;">Virtual travel - HELLO {{request.user}}</a>
+                {%else%}
+                <a href="{% url 'main' %}" style="text-decoration: none; color:white; ">Virtual travel</a>
+                {%endif%}       
+                </p>    
+            </div>
+        </div>
+    </div>
+    <div class=sec-nav>
+        <div class='container'>
+            <!-- seacrch form-->
+          
+            <div class='search'>
+                <form method="GET">
+                    {{myFilter.form.name}}
+                    <button type="submit">{% fa5_icon 'search' 'fas' %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--start headrt-->
+    {% include 'header.html' %}
+
+    <!--End header-->
+    <!--chevron down-->
+
+    <div id='chevron'>{% fa5_icon 'chevron-circle-down' 'fas' large=True  %} </div>        
+
+    <!---->
+    <div class='title-text'>
+        <div class='container'>
+            <p>Just because you have to stay home, doesn’t mean you can’t experience the world. We’ve created virtual city guides and travel content to celebrate the cities we love. Spend a day in these incredible destinations without leaving the house.</p>
+        </div>
+    </div>
+
+    <!--country sections-->
+    <section class='country'>
+        <div class="container">
+            <!--country-->
+            {% for country in countries %}
+            <a class='outer' href="{% url 'content' country.id %}">
+                <div class="inner">
+                    <img src='images/{{country.pic}}'>
+                </div>
+                <div class='content'>
+                    <h3>{{country.name}}</h3>
+                    <p>{{country.info}}</p>
+                </div>
+            </a>
+           {% endfor %}
+        </div>
+    </section>
+    <footer>
+        <div class='container'>
+            <div class='footer'>
+                ALL RIGHTS RESERVED
+            </div>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+        <script src="{% static 'js/jQury.js'%}"></script>
+</body>
+
+</html>

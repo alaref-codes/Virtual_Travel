@@ -1,0 +1,151 @@
+{%load static%}
+{% load fontawesome_5 %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{countries.name}}|Virtual travel</title>
+    <link rel='stylesheet' href="{% static '/css/style.css'%}">
+    {% fontawesome_5_static %}
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+
+<body data-bg='white'>
+    <!--Nav bar-->
+    <div class="navbar">
+        <div class="container">
+            <div class="links">
+                <a href="{% url 'logout' %}">Log out</a>
+            </div>
+            <div class="name">
+                    <a href="{% url 'main' %}" style="text-decoration: none; color:white;">Virtual travel - HELLO {{request.user}}</a>
+            </div>
+        </div>
+    </div>
+    <div class=sec-nav>
+        <div class='container'>
+            <div class='list'>
+                <ul>
+                    <li data-scroll=".place">
+                        Places
+                    </li>
+                    <li data-scroll=".fd">
+                        Food
+                    </li>
+                    <li data-scroll=".ln">
+                        Language
+                    </li>
+                </ul>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--Start header-->
+
+    {% include 'header.html' %}
+
+    <!--End header-->
+
+    <!--NobDa-->
+
+    <div class='nobda'>
+        <div class='container'>
+            <p>
+                Sure, we’re all at home, but that doesn’t mean we can’t enjoy the slow pace of a road trip through the
+                Golden State as we relax on the couch or kick back on the balcony. And since this is our ideal virtual
+                road trip.
+        </div>
+    </div>
+
+    <!--place section -->
+    <div class='title place'>
+        <div class='container'>
+            <h2>Place you should visit</h2>
+        </div>
+    </div>
+    {% for place in bestplace  %}
+    <div class='food-section '>
+        <div class='container'>
+            <div class="food-img">
+                <img src='/static/images/{{place.pic}}'>
+            </div>
+            <div class='food-text'>
+                <h2>{{place.name}}</h2>
+                <span>{% fa5_icon 'map-marker-alt' 'fas' %} {{place.city}}/{{place.position}}</span>
+                <p>{{place.info}}</p>
+                <a href='{{place.url}}' target='_blank'>Visit now</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    
+
+    <!--Food section-->
+
+    <div class='title fd'>
+        <div class='container'>
+            <h2>Food you should try</h2>
+        </div>
+    </div>
+
+    {% for  food in  trafood %}
+    <div class='food-section'>
+        <div class='container'>
+            <div class="food-img right">
+                <img src='/static/images/{{food.pic}}'>
+            </div>
+            <div class='food-text right'>
+                <h2>{{food.name}}</h2>
+                <p>{{food.info}}</p>
+                <a target='_blank' href='{{food.url}}'>Get a recipe</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    
+    <!-- language-->
+    <div class='title ln'>
+        <div class='container'>
+            <h2>Talk like a local</h2>
+            <br>
+            <h2 style="color:black;">{{countries.languag}}</h2>
+        </div>
+    </div>
+    <div class='container'>
+        <div class='lang'>
+            {% for lang in languages %}
+            <div class='word'>
+                <h3>{{lang.name}}</h3>  
+                <p>{{lang.info}}</p>
+            </div>
+            {% endfor %} 
+        </div>
+        <a href='{{countries.languageUrl}}' 
+        target='_blank'
+        style="text-decoration: none;
+        color: #fff;
+        background-color: #D51C00;
+        height: 33px;
+        width: 131px;
+        display: block;
+        padding: 7px;
+        text-align: center;
+        border-radius: 10px;
+        margin-top: 20px;">Find out more</a>
+    </div>
+    <footer>
+        <div class='container'>
+            <div class='footer'>
+                ALL RIGHTS RESERVED
+            </div>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/jQury.js'%}"></script>
+</body>
+
+</html>
